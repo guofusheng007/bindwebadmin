@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://bind-webadmin.com/blog</id>
+    <title>os-w Project Blog</title>
+    <updated>2023-10-09T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://bind-webadmin.com/blog"/>
+    <subtitle>os-w Project Blog</subtitle>
+    <icon>https://bind-webadmin.com/img/favicon.png</icon>
+    <entry>
+        <title type="html"><![CDATA[一分钟速览新闻点]]></title>
+        <id>https://bind-webadmin.com/blog/2023/10/09/</id>
+        <link href="https://bind-webadmin.com/blog/2023/10/09/"/>
+        <updated>2023-10-09T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[一分钟速览新闻点！]]></summary>
+        <content type="html"><![CDATA[<p>一分钟速览新闻点！
+详细<a href="https://blog.csdn.net/csdngeeknews/article/details/133669815" target="_blank" rel="noopener noreferrer">查看</a></p>
+<p>百度 CIO 李莹出任小度科技 CEO，原小度 CEO 离职创业<br>
+<!-- -->华为加入 Sisvel 蜂窝物联网专利池<br>
+<!-- -->李想卸任理想汽车多家公司法定代表人，由冯伟丽接任<br>
+<!-- -->全国首个大模型生态社区在沪揭牌<br>
+<!-- -->苹果 App Store 现黄色软件伪装成学习软件<br>
+<!-- -->iPhone 15 Pro 疑似出现烧屏问题<br>
+<!-- -->微软下个月或推出自家的首款人工智能芯片<br>
+<!-- -->扎克伯格称早就觉得马斯克约架不是来真的<br>
+<!-- -->英特尔暗示 Windows 12 将在 2024 年面世<br>
+<!-- -->Apache Dubbo 3.2.7 发布，正式支持 JDK 21<br>
+<!-- -->Rails 7.1 正式发布</p>]]></content>
+        <category label="科技新闻" term="科技新闻"/>
+    </entry>
+</feed>
