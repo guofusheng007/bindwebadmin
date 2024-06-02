@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://bind-webadmin.com/blog</id>
-    <title>os-w Project Blog</title>
+    <title>bind-webadmin Project Blog</title>
     <updated>2023-10-09T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://bind-webadmin.com/blog"/>
-    <subtitle>os-w Project Blog</subtitle>
+    <subtitle>bind-webadmin Project Blog</subtitle>
     <icon>https://bind-webadmin.com/img/favicon.png</icon>
     <entry>
         <title type="html"><![CDATA[一分钟速览新闻点]]></title>
