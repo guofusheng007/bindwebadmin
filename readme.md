@@ -4,6 +4,7 @@ DNS is one of the cornerstones of Internet communication. The reliability, flexi
 Bind-webadmin is based on bind9 and manages various types of records through web methods. The use of bind-webadmin can quickly deploy a professional DNS server, enabling each bind-webadmin user to have their own dynamic DNS platform without relying on third-party platforms.
 
 website
+https://doc.mm-dns.com
 https://bind-webadmin.com
 
 demo
