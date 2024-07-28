@@ -12,8 +12,6 @@ export default defineConfig({
     // 在项目中，可以通过process.env.NODE_ENV 或者
     // process.env.UMI_ENV 或者process.env.date得到对应环境的值
     'process.env': {
-     
-      //--------------------------------------------------------------------------------------------------
       //源码发行时的值
       REACT_APP_API_URL:'https://api.mm-dns.com/',   //必须是 / 为结束
       ICP:'粤ICP备2024267436号-1',
