@@ -1,0 +1,26 @@
+.App-logo {
+  width: 32px;
+  height: 32px;
+  margin: 15px;
+  /*height: 40vmin;*/
+  pointer-events: none;
+}
+/* 可以让图标转动起来 */
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+/* 可以让图标转动起来 */
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+  
