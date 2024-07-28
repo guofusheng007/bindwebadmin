@@ -292,7 +292,7 @@ export default () => {
         </NiceModal.Provider>
 
         {/* 页脚配置 */}
-        <div style={{'border': "0px dotted red",'textAlign': 'center',}}><br/>Copyright © 2023-{new Date().getFullYear()} Created by <a href="https://doc.mm-dns.com" target='_blank'>bind-webadmin project</a><br/><a href="http://beian.miit.gov.cn/" target='_blank'>{process.env.ICP}</a>&nbsp;&nbsp;&nbsp;&nbsp;{process.env.OTHERCODE}&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://creativecommons.org/licenses/by/4.0/deed.en" target='_blank'>CC BY-NC 4.0开源协议</a><br/>{process.env.LOGIN_FOOTER_TEXT}</div>
+        <div style={{'border': "0px dotted red",'textAlign': 'center',}}><br/>Copyright © 2023-{new Date().getFullYear()} Created by <a href="https://bind-webadmin.com" target='_blank'>bind webadmin project</a><br/><a href="http://beian.miit.gov.cn/" target='_blank'>{process.env.ICP}</a>&nbsp;&nbsp;&nbsp;&nbsp;{process.env.OTHERCODE}&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://creativecommons.org/licenses/by/4.0/deed.en" target='_blank'>CC BY 4.0</a><br/>{process.env.LOGIN_FOOTER_TEXT}</div>
       </div>
      </Layout>
      {/* </Watermark> */}

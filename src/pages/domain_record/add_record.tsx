@@ -177,6 +177,8 @@ const FormModal = NiceModal.create((props:any,ref) => {
                  //添加成功后关闭页面，并将如下信息返回给父组件，以便父组件更新列表
                  props.onOkClick(jsonData);  //调用父组件传递来的事件，并提供参数值.
                  modal.hide();
+               } else if (response.data.info === 'lisence_err') {
+                 message.error('添加解析记录失败,可能原因:授权出错,或解析记录数量超限,请联系管理员.')
                } else {
                  message.error('添加失败,该域名已存在系统中。请确认后再添加！')
                }

@@ -1,11 +1,7 @@
 //import React from "react";
 import { useNavigate,Navigate} from "react-router-dom";
-import {ShareInfo} from "@/public/shareinfo";
-import { Encrypt, Decrypt,EncryptIV, DecryptIV} from '@/public/crypto';
 import React, {useEffect,useState} from 'react';
 import axios from 'axios';
-import cookie from 'react-cookies'
-import { history } from 'umi';
 import { 
   UserOutlined,
   LockOutlined,
@@ -22,16 +18,7 @@ import {
   Checkbox,
 } from "antd";
 
-const token = cookie.load('TOKEN')
 
-//样式
-const layout = {
-    labelCol: { span: 7,offset:2},
-    wrapperCol: { span:12},
-};
-const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-};
 //统一配置validateMessages
 const validateMessages = {
     required: '${label} is required!',
@@ -39,6 +26,7 @@ const validateMessages = {
       email: '${label} is not a valid email!',
       number: '${label} is not a valid number!',
       url: '${label} is not a valid url!',
+      domain: '${label} is not a valid domain!',
     },
     number: {
       range: '${label} must be between ${min} and ${max}',
@@ -48,106 +36,49 @@ const validateMessages = {
 //弹页组件
 const UserInfoForm = (() => {
 
-  //从cookie中读取当前用户的登录信息
-  const appData = cookie.load('appData')
-  const txt_dec = Decrypt(appData,ShareInfo.KeyCookie) 
-  const AppConf = JSON.parse(txt_dec)
-  const userid = AppConf.userid
-
-  console.log("user:",AppConf.username)
-
   //form handle
   const [form] = Form.useForm();
-
-  //返回值定义
-  const [userinfo, setUserinfo] = useState({
-    id:'',
-    username: '',
-    password:'',
-    email: '',
-    mobile: '',
-    company: '',
-    website: '',
-    address: '',
-    remark: '',
-  });
-  //在组件挂载后获取数据库中的初始值
-  useEffect(() => {
-    //const url = 'http://192.168.3.110:8080/updateuserinfo/'+ userid
-    const url = ShareInfo.http_api + 'updateuserinfo/'+ userid
-    axios({
-      url:url,
-      method: 'get',    //get或post等html方法。不区分大小写
-      headers: {
-         'Content-Type':'application/json',
-         'AuthToken':token,
-         'dycode': ((new Date()).getTime() - 1010101010101) //此算法，需前后端保持可逆。
-      },
-    }).then(response => {  
-      if(response && response.status == 200){
-        console.log('Data submitted successfully');
-         // 响应成功的回调
-         // 将返回的数据传递给外部参数
-         //const data = response.data
-         //console.log(response.data[0])   
-         //console.log(response.data[0].username)  
-         setUserinfo(response.data[0])
-         //console.log("userinfo(useEffect):",userinfo)    
-      }else{
-         // 响应失败
-         console.log('Failed to submit data');
-         message.error('后台服务异常:请查看后台服务或网络')
-      }
-    }).catch((Error) => {
-      console.log("error",Error)
-      if (Error.response.status == 302) {
-        //return <Navigate to="/login" />
-        history.push('/login');
-      }
-    });
-  }, []);
-
-  //表单初始值
-  useEffect(() => {
-    if (Object.keys(userinfo).length > 0) {
-      form.setFieldsValue(userinfo); // 设置表单初始值
-    }
-  }, [userinfo, form]);
 
   //按扭"submit"的单击事件
   const onFinish = (values: any) => {
     //表单数据
-    const UserInfojsonData = 
+    const LisenceInfojsonData = 
     {
       username: values.username,
-      password:'',
+      address: values.address,
       email: values.email,
       mobile: values.mobile,
       company: values.company,
       website: values.website,
-      address: values.address,
+      nsdomain: values.nsdomain,
+      count_domains:values.count_domains,
+      count_records:values.count_records,
+      count_users:values.count_users,
+      count_days:values.count_days,
       remark: values.remark,
     }
-    console.log(UserInfojsonData)
-    //message.error('录入用户名或密码有误，请重新录入')
-    //const url = 'http://192.168.3.110:8080/updateuserinfo/'+ userid
-    //const dycode = (new Date()).getTime()
-    //console.log("dycode:",dycode)
-    const url = ShareInfo.http_api + 'updateuserinfo/'+ userid
+    console.log(LisenceInfojsonData)
+
+    const url = 'https://data.mm-dns.com/postlisence'
     axios({
       url:url,
       method: 'post',    //get或post等html方法。不区分大小写
       headers: {
          'Content-Type':'application/json',
-         'AuthToken':token,
-         'dycode': ((new Date()).getTime() - 1010101010101)
-         //'dycode':(new Date()).getTime(),
       },
-      data: JSON.stringify(UserInfojsonData)  //body参数。
+      data: JSON.stringify(LisenceInfojsonData)  //body参数。
     }).then(response => {
       if(response && response.status == 200){
         console.log('Data submitted successfully');
-        message.success('修改成功，已保存。')    
+
+        // 响应成功的回调
+        const db_result = response.data
+        console.log("info:",db_result.info)
+        if (response.data.info === 'ok') {
+          message.success('申请信息发送成功，请耐心等，会以邮件告知！')
+        } else {
+          message.error('无需多次申请，管理员会及时处理。')
+        } 
       }else{
          // 响应失败
          console.log('Failed to submit data');
@@ -158,11 +89,26 @@ const UserInfoForm = (() => {
   }
   //按扭"reset"的单击事件
   const onReset = () => {
-    //form.resetFields();
-    form.setFieldsValue(userinfo);
+    form.resetFields();
+  };
+
+  //样式
+  const layout = {
+    labelCol: { span: 4,offset:0},
+    wrapperCol: { span:19},
   };
  
   return (<>
+        <div style={{
+            'border':'0px solid red',
+            'width':'100vw', 
+            'margin':'auto',
+            'display': 'flex',
+            'flexDirection':'column',
+            'alignItems': 'center',
+            'gap': '20px',
+            }}>
+                <h1>授权申请表</h1>
         <Form 
             {...layout}
             form={form} 
@@ -172,18 +118,22 @@ const UserInfoForm = (() => {
             validateMessages={validateMessages}
             style={{
                 'border': '0px dotted rgb(47, 0, 255)',
-                'maxWidth': '900px',
+                'width': '80vw',
+                'marginRight':'20px',
+                //'gap': '60px',
             }}
         >
+
           <Form.Item 
             name="username" 
             label="User Name" 
+            rules={[{ required: true,message: '此项必须输入' }]}
             >
-            <Input placeholder="用户名称" prefix={<UserOutlined />} disabled />
+            <Input placeholder="用户名称" prefix={<UserOutlined />} />
           </Form.Item>
 
           <Form.Item name='email' label="Email" rules={[{ required: true,message: '此项必须输入' },{ type: 'email' }]}>
-             <Input placeholder="用于忘记密码验证" />
+             <Input placeholder="授权文件新收邮箱" />
           </Form.Item>
 
           <Form.Item name='mobile' label="mobile" rules={[
@@ -194,7 +144,7 @@ const UserInfoForm = (() => {
               },
               ]}
            >
-             <Input placeholder="用于忘记密码验证"/>
+             <Input placeholder="联系人电话"/>
           </Form.Item>
 
           <Form.Item name='company' label="公司名称" rules={[{ required: true,message: '此项必须输入' }]}>
@@ -205,14 +155,73 @@ const UserInfoForm = (() => {
              <Input placeholder="公司网站" />
           </Form.Item>
 
+          <Form.Item name='nsdomain' label="NS域名" 
+            rules={[
+                { required: true,message: '此项必须输入' },
+                { pattern: /^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/, message: '域名书写格式不正确'},
+            ]}>
+               <Input placeholder="授权域名" />
+          </Form.Item>
+
+          
+          <Form.Item
+            name="count_domains"
+            label="域名数量"
+            rules={[
+                { required: true, message: 'Please input donation amount!' },
+                { type: 'number', min: 0, max: 5000 }
+            ]}
+            initialValue={50}
+          >
+            <InputNumber style={{ width: '120px' }}  />
+          </Form.Item>
+
+          <Form.Item
+            name="count_records"
+            label="解析记录数量"
+            rules={[
+                { required: true, message: 'Please input donation amount!' },
+                { type: 'number', min: 0, max: 20000 }
+            ]}
+            initialValue={500}
+          >
+            <InputNumber style={{ width: '120px' }}  />
+          </Form.Item>
+
+          <Form.Item
+            name="count_users"
+            label="注册用户数量"
+            rules={[
+                { required: true, message: 'Please input donation amount!' },
+                { type: 'number', min: 0, max: 2000 }
+            ]}
+            initialValue={200}
+          >
+            <InputNumber style={{ width: '120px' }}  />
+          </Form.Item>
+
+          <Form.Item
+            name="count_days"
+            label="授权天数"
+            rules={[
+                { required: true, message: 'Please input donation amount!' },
+                { type: 'number', min: 0, max: 36500 }
+            ]}
+            initialValue={365}
+          >
+            <InputNumber style={{ width: '120px' }}  />
+          </Form.Item>
+
+
           <Form.Item name='address' label="地址">
              <Input placeholder="地址"/>
           </Form.Item>
 
           <Form.Item name='remark' label="备注">
-             <Input placeholder="备注"/>
+             <Input.TextArea showCount maxLength={200} placeholder="备注"/>
           </Form.Item>
-  
+ 
+
           {/* button */}
           <Space 
             style={{ 
@@ -227,6 +236,7 @@ const UserInfoForm = (() => {
             <Button htmlType="button" onClick={onReset}>重填</Button>
           </Space>
          </Form>
+         </div>
   </>);
 });
  

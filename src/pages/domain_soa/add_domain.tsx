@@ -48,7 +48,7 @@ const FormModal = NiceModal.create((props:any,ref) => {
   );
   const suffixSelectorDomain = <>
     <Form.Item name="suffixDomain" noStyle initialValue=".com">
-      <Select style={{ width: 90 }}>
+      <Select style={{ width: 120 }}>
        {array}
       </Select>
     </Form.Item>
@@ -105,6 +105,8 @@ const FormModal = NiceModal.create((props:any,ref) => {
                  //添加成功后关闭页面，并将如下信息返回给父组件，以便父组件更新列表
                  props.onOkClick(jsonData);  //调用父组件传递来的事件，并提供参数值.
                  //modal.hide();
+               } else if (response.data.info === 'lisence_err') {
+                 message.error('添加域名失败,可能原因:授权出错,或域名添加数量超限,请联系管理员.')
                } else {
                  message.error('添加失败,该域名已存在系统中。请确认后再添加！')
                }
@@ -150,9 +152,9 @@ const FormModal = NiceModal.create((props:any,ref) => {
           <Form.Item name="domain" label="Domain" rules={[
             { required: true },
             {type: 'string',whitespace: true,message: '只能输入字串，且不能为空字串'},
-            {pattern:/^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$/, message: '以字母或数字为开头和结束'},
+            {pattern:/^[a-zA-Z0-9][a-zA-Z0-9._-]+[a-zA-Z0-9]$/, message: '以字母或数字为开头和结束,中间字串可以由一个或多个字母、数字、点(.)、下划线、中划线组成.'},
             ]}>
-            <Input addonAfter={suffixSelectorDomain} placeholder="add your doamin" />
+            <Input addonAfter={suffixSelectorDomain} placeholder="add your domain" />
           </Form.Item>
           <Form.Item name="remark" label="Remark">
             <Input.TextArea showCount maxLength={50} placeholder="备注,可以不添写"/>

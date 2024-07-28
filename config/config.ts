@@ -12,6 +12,7 @@ export default defineConfig({
     // 在项目中，可以通过process.env.NODE_ENV 或者
     // process.env.UMI_ENV 或者process.env.date得到对应环境的值
     'process.env': {
+      //--------------------------------------------------------------------------------------------------
       //容器方式发行时的初始值,不能改变
       /*
       REACT_APP_API_URL:'http://192.168.3.110:9090/',   //此配置值仅用于docker compose时的容器打包时的初始值
@@ -27,10 +28,13 @@ export default defineConfig({
       TTLCookie:864000000000111, 
       */
       
+      //--------------------------------------------------------------------------------------------------
       //源码发行时的值
       REACT_APP_API_URL:'https://api.mm-dns.com/',   //必须是 / 为结束
+      //REACT_APP_API_URL:'http://192.168.3.110:9090/',
       //REACT_APP_API_URL:'http://47.115.43.179:9090/', 
-      ICP:'粤ICP备2024267436号',
+      //REACT_APP_API_URL:'http://192.168.3.7:9090/',
+      ICP:'粤ICP备2024267436号-1',
       OTHERCODE:'粤公网安备44030002003924号',
       LOGIN_FOOTER_TEXT:'Mobile: 13751090806    email: info@mm-dns.com',
       APP_TITLE:'mmDNS',  

@@ -81,10 +81,12 @@ const UserRegisterModal = NiceModal.create((props:any) => {
           console.log(data)   //将返回信息回显到浏览器的console接口
           if (data.info === '用户名称重名') {
              message.error('用户名称重名，请重新录入')
+          } else if (data.info === 'lisence_err') {
+             message.error('添加用户失败,可能原因:授权出错,或注册量超限,请联系管理员.')
           } else {
-             console.log(data.info)
-             message.success('恭喜,您已注册成功，请返回登录。')
-             modal.hide()
+            console.log(data.info)
+            message.success('恭喜,您已注册成功，请返回登录。')
+            modal.hide()
           }
       })
       .catch(error => {

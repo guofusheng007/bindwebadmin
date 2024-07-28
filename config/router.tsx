@@ -87,6 +87,13 @@ const RouterListProLayout:LayoutRouterType[] = [
         icon:<MailOutlined />,
         component: "@/pages/userconf/chpwd.tsx",
       },
+      {
+        key:"active",
+        path:"active",
+        name:"激活",
+        icon:<MailOutlined />,
+        component: "@/pages/userconf/active.tsx",
+      },
     ]
   },
 ]
@@ -99,6 +106,13 @@ const RouterListExtr = [
     path:"/login",
     name:"login",
     component: "@/pages/login/login.tsx",
+    layout:false,
+  },
+  {
+    key:"lisence",
+    path:"/lisence",
+    name:"lisence",
+    component: "@/other/lisence.tsx",
     layout:false,
   },
   /*

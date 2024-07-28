@@ -60,7 +60,8 @@ const UserInfoFormChangePwd = (() => {
   const txt_dec = Decrypt(appData,ShareInfo.KeyCookie) 
   const AppConf = JSON.parse(txt_dec)
   const userid = AppConf.userid
-  AppConf.username
+  //AppConf.username
+  //console.log("---------user----------------:",AppConf.username)
 
   //form handle
   const [form] = Form.useForm();
@@ -73,8 +74,7 @@ const UserInfoFormChangePwd = (() => {
       return
     }
     //表单数据
-    const UserPwdinfo = 
-    {
+    const UserPwdinfo = {
       oldpwd: CryptoJS.SHA256(values.oldpwd).toString(),
       newpwd: CryptoJS.SHA256(values.newpwd).toString(),
     }

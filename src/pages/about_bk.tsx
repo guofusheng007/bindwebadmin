@@ -2,90 +2,51 @@
 import React, {useEffect,useState,useRef} from 'react';
 import cookie from 'react-cookies'
 import {ShareInfo} from "@/public/shareinfo";
-import {GetStringRand,UpdaterecordInfo,getTotal} from "@/public/sharefun";
+import {GetStringRand,UpdaterecordInfo,getTotal,getLisenceInfo} from "@/public/sharefun";
 import { Encrypt, Decrypt,EncryptIV, DecryptIV } from '@/public/crypto';
-import axios from 'axios';
-import { history } from 'umi';
 
 import { 
+  Form,
   Progress,
   Descriptions,
   Badge,
-  Tooltip,
 } from "antd";
+import CryptoJS from 'crypto-js';
 import type { DescriptionsProps } from 'antd';
 
 
 
 export default () => {
+  const [form] = Form.useForm();
   //从cookie中读取当前用户的登录信息
-  const token = cookie.load('TOKEN')
   const appData = cookie.load('appData')
   const txt_dec = Decrypt(appData,ShareInfo.KeyCookie) 
   const AppConf = JSON.parse(txt_dec)
   const userid = AppConf.userid
   const username = AppConf.username
   const total = getTotal(username)
-  //console.log("total:",total)
+  const totalLisenceInfo = getLisenceInfo()
+  console.log("total:",total)
+  console.log("totalLisenceInfo:",totalLisenceInfo)
+
 
   const [total_data, setTotal_data] = useState<any>({}); 
   const [monitordata, setMonitodata] = useState<any>({}); 
   const [lisenceinfo_cur, setLisenceInfo_cur] = useState<any>({});
   const [lisenceinfo_txt, setLisenceInfo_txt] = useState<any>({});
-  const [bounceinfo, setBounceinfo] = useState(''); 
   useEffect(() => {
       //提取PromiseResult
       total.then((PromiseResult:any)=>{
-        //console.log("Promise的数据:",PromiseResult)
+        console.log("Promise的数据:",PromiseResult)
         setTotal_data(PromiseResult)
         setMonitodata(PromiseResult.monitordata)
       });
-
       //lisence信息统计
-      //提取后端的Lisencd信息
-      const url = ShareInfo.http_api + 'getlisenceinfo'
-      try{
-         axios({
-            url:url,
-            method: 'get',
-            headers: {
-               'Content-Type':'application/json',
-               'AuthToken':token,
-               'dycode': ((new Date()).getTime() - 1010101010101) 
-            },
-         }).then(response => {
-            if(response && response.status == 200){
-              setLisenceInfo_cur(response.data)
-              setLisenceInfo_txt(response.data.Lisence_info)
-            }
-         }).catch((Error) => {
-            console.log("error",Error)
-            if (Error.response.status == 302) {
-              history.push('/login');
-            }
-         });
-      } catch (error){
-         console.error("Error fetching data", error);
-      }
-
-      //推送信息提取
-      axios({
-        url:'https://data.mm-dns.com/getbounce',
-        method: 'get',    
-        headers: {
-           'Content-Type':'application/json',
-        }
-      }).then(response => {
-        if(response && response.status == 200){
-          console.log('Data submitted successfully');
-          if (response.data.info != 'no') {
-            setBounceinfo(response.data.info)
-          }  
-        }else{
-           console.log('Failed to submit data');
-        }
-      })
-
+      totalLisenceInfo.then((PromiseResult:any)=>{
+        console.log("Promise的数据:",PromiseResult)
+        setLisenceInfo_cur(PromiseResult)
+        setLisenceInfo_txt(PromiseResult.Lisence_info)
+      });
   }, []);
   
   const items1: DescriptionsProps['items'] = [
@@ -281,7 +242,6 @@ export default () => {
 
   return (<div>
     <h2>你好，{username}</h2>
-    <h3><div style={{"color":"green"}}>{bounceinfo}</div></h3>
     <br/>
     {
       (AppConf.username == 'admin') ? (
@@ -310,7 +270,7 @@ export default () => {
             <br/>
           </>):(<>
             <Descriptions 
-              title={<>授权信息 <Tooltip title="向好友推荐bind webamin,可以获得更多授权,行动吧" color="blue" ><a href="https://mm-dns.com/lisence" target="_blank">更新授权</a></Tooltip></>}                  //描述列表的标题，显示在最顶部.支持嵌html代码
+              title={<>授权信息 <a href="https://mm-dns.com/lisence" target="_blank">更新授权</a></>}                  //描述列表的标题，显示在最顶部.支持嵌html代码
               bordered                           //是否展示边框
               items={items2}                      //描述列表项内容
               layout="horizontal"                //描述布局,horizontal | vertical

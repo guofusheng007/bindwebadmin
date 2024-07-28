@@ -160,6 +160,10 @@ const BasicLayout: React.FC<{}> = () => {
               setIsPageContainer(true)
               navigate("/userconf/chpwd");
               break;
+            case "active":
+              setIsPageContainer(true)
+              navigate("/userconf/active");
+              break;
             case "domain":
               setIsPageContainer(true)
               navigate("/domain");
@@ -194,9 +198,9 @@ const BasicLayout: React.FC<{}> = () => {
         navigate("/userconf/userinfo");
         break;
       case "logout":
+        cookie.remove('TOKEN')    //用户自己退出，清空token. 防止别人通过回退页面方式进入。
+        cookie.remove('appData')  //用户自己退出，清空token. 防止别人通过回退页面方式进入。
         setIsPageContainer(false)
-        cookie.remove('TOKEN', { path: '/' })   //用户自己退出，清空token. 防止别人通过回退页面方式进入。
-        cookie.remove('appData', { path: '/' })   //用户自己退出，清空token. 防止别人通过回退页面方式进入。
         navigate("/login");
         break;
     }
