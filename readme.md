@@ -1,10 +1,9 @@
-# about bind-webadmin project
+# about bind webadmin project
 DNS is one of the cornerstones of Internet communication. The reliability, flexibility, and security of DNS (Domain Name System) are indispensable key factors for enterprise success.
 
 Bind-webadmin is based on bind9 and manages various types of records through web methods. The use of bind-webadmin can quickly deploy a professional DNS server, enabling each bind-webadmin user to have their own dynamic DNS platform without relying on third-party platforms.
 
 website
-https://doc.mm-dns.com
 https://bind-webadmin.com
 
 demo
