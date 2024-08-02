@@ -14,29 +14,33 @@ https://mm-dns.com
 
 # 安装
 ```bash
-# wget https://bind-webadmin.com/download/bind-webadmin.v0.1.tar.gz
+# wget https://data.bind-webadmin.com/dw/bind-webadmin.v0.1.tar.gz
 # tar zxvf bind-webadmin.v0.1.tar.gz
 # cd bind-webadmin.v0.1
-# sh install.sh
-# tree /app
-/app
+# sh install.sh  /bindwebadmin  # 格式: sh install.sh  /install_dir 
+                                # 安装目录为 /install_dir
+                                # 书写格式: 以 / 开头，且不能以 / 为结尾
+                                # 例如：
+                                #    /abc/123    正确
+                                #    /abc/123/   错误
+# tree /bindwebadmin
+/bindwebadmin            # 安装在 /bindwebadmin 目录。在安装前需保证本宿主中没有该目录。安装过程中会创建该目录。
 ├── cert
-│   ├── dhparams.pem
-│   ├── fullchain.pem
-│   └── privkey.pem 
-├── docker-compose.yml
-├── env.txt
+│   ├── dhparams.pem
+│   ├── fullchain.pem    # 域名证书
+│   └── privkey.pem      # 证书私钥
+├── docker-compose.yml   # docker compose 配置文件
 ├── mysql
 ├── server
-│   └── app.conf
-└── start.sh 
+│   └── app.conf         # api接口配置文件
+└── env.txt              # 主配置文件(环境变量)。供各个容器初始化时统一调用 
 
+# cd /bindwebadmin
 # vi env.txt
 NS_DOMAIN='hello.com'
 SSL=false
 
-# cd /app
-# sh start.sh
+# docker compose up -d 
 # docker ps
 CONTAINER ID   IMAGE                                                     COMMAND                  CREATED         STATUS              PORTS                                              NAMES
 ff5dfdeb80c8   registry.cn-hangzhou.aliyuncs.com/darry/bind_proxy:v1     "/entrypoint.sh"         2 minutes ago   Up About a minute   0.0.0.0:80->80/tcp, 22/tcp, 0.0.0.0:443->443/tcp   app-bind_proxy-1
