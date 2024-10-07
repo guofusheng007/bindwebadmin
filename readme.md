@@ -12,38 +12,30 @@ https://mm-dns.com
 > 提示
 > 此部分开源的为bind-webadmin project的前端代码，欢迎大家讨论和指导。
 
-## 架构图
+# 架构图
 
 <img src="./img/sr.png" align="center">
 <br />
 
-## 项目核心目标
-- bind webadmin帮助用户快速搭建一套完整的动态DNS系统。自托管，无需依赖第三方动态DNS服务，完全控制权在自己手中。
-- 由普通运维人员即可维护一套专业级DNS系统，降低企业DNS运维成本
+# Core Objectives of the Project
+- **webadmin** assists users in rapidly setting up a comprehensive dynamic DNS system. It is self-hosted, eliminating the need for third-party dynamic DNS services, thus giving users full control.
+- A professional-grade DNS system can be maintained by regular IT operation and maintenance personnel, reducing enterprise DNS operation and maintenance costs.
 
-# 功能介绍
-- web方式管理bind9解析的域名和各类记录。
-- 解析记录TTL值自由化，最小可配置为1秒，满足实性要求较高的应用场景
-- 提供api接口，供用户实现编程式解析各类记录
-- 提供客户端程序，自动识别用户IP(可选择公网出口IP或用户本机IP)变化，并主动更新。
-- 用户可配置自己的域名为动态域名，自由实时解析。
-- 支持IPv6记录写入
+# Brief Description of Functions
+1. **Web-based Management**: Manage domains and various records resolved by bind9 through a web interface.
+2. **Flexible Domain Resolution**: Freely resolve both public and private domains.
+3. **Customizable TTL Values**: Set TTL values for resolution records flexibly, with a minimum configuration of 1 second, meeting the needs of scenarios requiring high real-time performance.
+4. **API Interface**: Provide an API for users to programmatically resolve various records.
+5. **Client Program**: Automatically recognize changes in user IP (choosing either public exit IP or user's local IP) and initiate updates.
+6. **Dynamic Domain Configuration**: Users can configure their domains as dynamic domains for real-time resolution.
+7. **IPv6 Record Support**: Support for writing IPv6 records.
+8. **Reverse Resolution Record Addition**: Add reverse resolution records.
 
-## 功能简述
-1. web方式管理bind9解析的域名和各类记录。
-1. 公用域名和私有域名自由解析。
-1. 解析记录TTL值自由化，最小可配置为1秒，满足实性要求较高的应用场景
-1. 提供api接口，供用户实现编程式解析各类记录
-1. 提供客户端程序，自动识别用户IP(可选择公网出口IP或用户本机IP)变化，并主动更新。
-1. 用户可配置自己的域名为动态域名，自由实时解析。
-1. 支持IPv6记录写入
-1. 反向解析记录添加
-
-## 应用场景
-- 远程工作环境：对于需要在家办公，且拥有内部服务器的人士，该工具可以确保即使外网IP变化，也能稳定访问内网资源。
-- 智能家居集成：使智能设备可以通过固定域名进行远程控制，而不受ISP更换IP的影响。
-- 智慧集成应用: 如家用路由、家用NAS、智慧摄像头、智慧传感器、智慧路灯、智慧广告牌。行业如物联网、车联网、工业互联网、智慧教育、智慧政务等等。
-- 技术教育：学习网络基础和自动化运维的学生可以通过这个项目理解DNS工作原理及脚本编程的实际应用。
+# Application Scenarios
+- **Remote Work Environment**: For individuals who need to work from home and have internal servers, this tool ensures stable access to internal network resources even when the external IP changes.
+- **Smart Home Integration**: Allows smart devices to be remotely controlled via a fixed domain name, unaffected by ISP-initiated IP changes.
+- **Smart Integrated Applications**: Such as home routers, home NAS, smart cameras, smart sensors, smart streetlights, and smart billboards. Industries include IoT, connected vehicles, industrial IoT, smart education, smart government, and more.
+- **Technical Education**: Students learning network fundamentals and automated operation and maintenance can use this project to understand the working principles of DNS and practical applications of script programming.
 
 # deploy by docker
 ## install
