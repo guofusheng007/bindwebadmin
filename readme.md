@@ -45,8 +45,8 @@ https://mm-dns.com
 - 智慧集成应用: 如家用路由、家用NAS、智慧摄像头、智慧传感器、智慧路灯、智慧广告牌。行业如物联网、车联网、工业互联网、智慧教育、智慧政务等等。
 - 技术教育：学习网络基础和自动化运维的学生可以通过这个项目理解DNS工作原理及脚本编程的实际应用。
 
-# deploy
-## install by docker 
+# deploy by docker
+## install
 ```bash
 # wget https://data.bind-webadmin.com/dw/bind-webadmin.v0.1.tar.gz
 # tar zxvf bind-webadmin.v0.1.tar.gz
@@ -81,8 +81,11 @@ https://mm-dns.com
 ├── mysql/                      # mysql数据目录。当容器第一次创建时，该目录会被写入数据库初始化数据。
 └── server                      # 后台配置。当容器第一创建时，系统自动修改app.conf。
     ├── app.conf                # 在容器启动后，若修改此文件，需重启容器。
-    └── lisence.txt             # 授权配置文件
+    └── lisence.txt             # 授权配置文件  
+```
 
+config env.txt
+```bash
 # cd /bindwebadmin
 # vi env.txt
 # NS_DOMAIN值必须与bind_backend中的配置文件app.conf中的ns变量值相同。
@@ -100,7 +103,9 @@ NS_IP=192.168.3.14
 # 本例中，宿主ip为192.168.3.14
 
 SSL=false
-
+```
+deploy
+```bash
 # docker compose up -d 
 # docker ps
 CONTAINER ID   IMAGE                                                     COMMAND                  CREATED         STATUS              PORTS                                              NAMES
@@ -108,11 +113,11 @@ ff5dfdeb80c8   registry.cn-hangzhou.aliyuncs.com/darry/bind_proxy:v1     "/entry
 c243de969590   registry.cn-hangzhou.aliyuncs.com/darry/bind_front:v1     "/docker-entrypoint.…"   2 minutes ago   Up About a minute   80/tcp, 0.0.0.0:9091->9091/tcp                     app-bind_front-1
 8cc768945d27   registry.cn-hangzhou.aliyuncs.com/darry/bind:v1           "docker-entrypoint.sh"   2 minutes ago   Up 59 seconds       0.0.0.0:53->53/tcp, 0.0.0.0:53->53/udp, 953/tcp    app-bind9-1
 c5754055d43d   registry.cn-hangzhou.aliyuncs.com/darry/bind_backend:v1   "/entrypoint.sh"         2 minutes ago   Up About a minute   0.0.0.0:9090->9090/tcp                             app-bind_backend-1
-952156a17811   registry.cn-hangzhou.aliyuncs.com/darry/bind_mysql:v1     "docker-entrypoint.s…"   2 minutes ago   Up 2 minutes        0.0.0.0:3306->3306/tcp, 33060/tcp                  app-bind_mysql-1        
+952156a17811   registry.cn-hangzhou.aliyuncs.com/darry/bind_mysql:v1     "docker-entrypoint.s…"   2 minutes ago   Up 2 minutes        0.0.0.0:3306->3306/tcp, 33060/tcp                  app-bind_mysql-1 
 ```
 
 ## test
-将你自己当前电脑的DNS修改为bind webadmin服务IP，如本例的`192.168.3.14`
+使用nslookup测试
 ```bash
 C:\Users\Administrator>nslookup
 Address:  192.168.3.1
@@ -153,10 +158,15 @@ Address:  192.168.3.14
 
 >
 ```
+将你自己当前电脑的DNS修改为bind webadmin服务IP，如本例的`192.168.3.14`
+<img src="./img/ip.png" align="center">
+<br />
 
 在chrome中打开 http://hello.com 或 http://dsn.hello.com 或 http://www.hello.com 
 默认帐号
 - admin/admin1111mm
 - demo/demo1111mm
 
+<img src="./img/demo.png" align="center">
+<br />
 
