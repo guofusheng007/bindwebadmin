@@ -13,7 +13,9 @@ https://mm-dns.com
 > 此部分开源的为bind-webadmin project的前端代码，欢迎大家讨论和指导。
 
 ## 架构图
-<img style={{'box-shadow':'none'}} src="/img/rs/sr.png" />
+
+<img src="./sr.png" align="center">
+<br />
 
 ## 项目核心目标
 - bind webadmin帮助用户快速搭建一套完整的动态DNS系统。自托管，无需依赖第三方动态DNS服务，完全控制权在自己手中。
