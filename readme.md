@@ -14,7 +14,7 @@ https://mm-dns.com
 
 ## 架构图
 
-<img src="./sr.png" align="center">
+<img src="./img/sr.png" align="center">
 <br />
 
 ## 项目核心目标
