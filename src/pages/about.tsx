@@ -70,7 +70,7 @@ export default () => {
 
       //推送信息提取
       axios({
-        url:'https://data.mm-dns.com/getbounce',
+        url:'https://data.bind-webadmin.com/getbounce',
         method: 'get',    
         headers: {
            'Content-Type':'application/json',
